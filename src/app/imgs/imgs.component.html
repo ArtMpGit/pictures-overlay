@@ -1,0 +1,20 @@
+<div class="flex">
+  <div class="img-top">
+    <img id="imagem" [src]="selectedImg" alt="">
+    <div class="img-mascara"><img class="mascara" [src]="selectedMask" alt=""></div>
+  </div>
+
+  <div class="buttons">
+    <button (click)="background = true; fileInput.click()">Selecionar fundo</button>
+    <input #fileInput (change)="uploadImg($event.target.files)" type="file" style="display: none" required>
+    <button (click)="mask = true; fileMaskInput.click()">Selecionar máscara</button>
+    <input #fileMaskInput (change)="uploadImg($event.target.files)" type="file" style="display: none" required>
+    <button (click)="mergeImgs()" >Carregar</button>
+  </div>
+</div>
+<canvas #canvas width="600" heigth="600"></canvas>
+
+
+
+
+

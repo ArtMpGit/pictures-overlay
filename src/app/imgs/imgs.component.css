@@ -1,0 +1,37 @@
+.img-top {
+  position: absolute;
+}
+.img-mascara {
+  position: relative;
+  top: -26rem;
+}
+#imagem {
+  width:70%;
+}
+.mascara {
+  width: 70%;
+}
+button {
+  position: relative;
+  top: 20rem;
+}
+
+canvas{
+  position: relative;
+  top: 33rem;
+  margin-left: 28%;
+}
+.flex-buttons {
+  display: flex;
+  text-align: center;
+  justify-content: center
+}
+.flex {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.buttons {
+  position: relative;
+  top: 8rem;
+}
