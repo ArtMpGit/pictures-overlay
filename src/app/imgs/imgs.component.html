@@ -1,18 +1,24 @@
-<div class="flex">
-  <div class="img-top">
-    <img id="imagem" [src]="selectedImg" alt="">
-    <div class="img-mascara"><img class="mascara" [src]="selectedMask" alt=""></div>
+<div class="container">
+  <div class="imgs-flex">
+    <div class="jumbotron">
+      <p>Background and mask preview</p>
+      <img id="imagem" [src]="selectedImg" alt="">
+      <img id="mascara" [src]="selectedMask" alt="">
+    </div>
   </div>
 
-  <div class="buttons">
-    <button (click)="background = true; fileInput.click()">Selecionar fundo</button>
+  <div class="buttons-flex">
+    <button class="btn btn-default" (click)="background = true; fileInput.click()">Select background</button>
     <input #fileInput (change)="uploadImg($event.target.files)" type="file" style="display: none" required>
-    <button (click)="mask = true; fileMaskInput.click()">Selecionar máscara</button>
+    <button class="btn btn-default" (click)="mask = true; fileMaskInput.click()">Select mask</button>
     <input #fileMaskInput (change)="uploadImg($event.target.files)" type="file" style="display: none" required>
-    <button (click)="mergeImgs()" >Carregar</button>
+    <button class="btn btn-default" (click)="mergeImgs()" >Merge</button>
+  </div>
+
+  <div class="canvas-flex">
+    <canvas #canvas width="600" heigth="600"></canvas>
   </div>
 </div>
-<canvas #canvas width="600" heigth="600"></canvas>
 
 
 
