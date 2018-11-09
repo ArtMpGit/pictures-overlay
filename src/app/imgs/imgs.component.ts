@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-imgs',
@@ -12,59 +12,53 @@ export class ImgsComponent implements OnInit {
   canvas: ElementRef;
 
   selectedImg: string = "http://www.ferramentaslp.com.br/wp-content/uploads/2014/12/MACHADO-COM-CABO-4-600x600.jpg";
-  selectedToUpload
 
   selectedMask: string = "../../assets/mascara.png";
-
+  
   background: boolean = false;
-  mask: boolean = false;
+
+  images: Array<any> = new Array<any>();
+  downloadUrl: string;
+  reader = new FileReader();
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  uploadImg(file: FileList, selection) {
-    this.selectedToUpload = file.item(0);
-    let reader = new FileReader();
-    reader.onload = (event: any) =>{
+    this.reader.onload = (event: any) => {
+      let image = new Image();
+      image.src = event.target.result;
+      this.images.push(image);
 
       if(this.background) {
         this.selectedImg = event.target.result;
         this.background = false;
       }
-
-      if(this.mask) {
-        this.selectedMask = event.target.result;
-        this.mask = false;
-      }
+      else this.selectedMask = event.target.result;
     }
-    reader.readAsDataURL(this.selectedToUpload);
+  }
+
+ 
+
+  uploadImg(file: FileList) {
+  
+    this.reader.readAsDataURL(file.item(0));
+
   }
 
   mergeImgs() {
 
-      let canvas: HTMLCanvasElement = this.canvas.nativeElement;
-      let context = canvas.getContext('2d');
-
-      let img1 = new Image();
-      let img2 = new Image();
-
-      img1.onload = () => {
-        canvas.width = img1.width;
-        canvas.height = img1.height;
-        img2.src = this.selectedMask;
-      };
-      img2.onload = () => {
-        context.globalAlpha = 1.0;
-        context.drawImage(img1, 0, 0, 600, 600);
-        context.globalAlpha = 1.0;
-        context.drawImage(img2, 0, 0, 600, 600);
-
-      };
-        img1.width = 600;
-        img1.height = 600;
-        img1.src = this.selectedImg;
-        
+    let canvas: HTMLCanvasElement = this.canvas.nativeElement;
+    let context = canvas.getContext('2d');
+    
+    canvas.width = 600;
+    canvas.height = 600;
+    context.globalAlpha = 1.0;
+    
+    context.drawImage(this.images[0], 0, 0, 600, 600);
+    context.drawImage(this.images[1], 0, 0);
+    context.save();
+    this.downloadUrl = canvas.toDataURL();    // img1.src = this.selectedImg;
+    
   }
+
 }

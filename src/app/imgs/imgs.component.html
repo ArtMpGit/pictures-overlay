@@ -10,13 +10,15 @@
   <div class="buttons-flex">
     <button class="btn btn-default" (click)="background = true; fileInput.click()">Select background</button>
     <input #fileInput (change)="uploadImg($event.target.files)" type="file" style="display: none" required>
-    <button class="btn btn-default" (click)="mask = true; fileMaskInput.click()">Select mask</button>
+    <button class="btn btn-default" (click)="fileMaskInput.click()">Select mask</button>
     <input #fileMaskInput (change)="uploadImg($event.target.files)" type="file" style="display: none" required>
     <button class="btn btn-default" (click)="mergeImgs()" >Merge</button>
   </div>
-
+  <a [href]="downloadUrl" *ngIf="downloadUrl" download="HACKATHON_2018.png">
+    CLICA AQUI PRA DOWNLOAD
+  </a>
   <div class="canvas-flex">
-    <canvas #canvas></canvas>
+    <canvas (click)="eventClick($event)" #canvas></canvas>
   </div>
 </div>
 
