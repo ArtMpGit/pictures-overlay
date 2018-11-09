@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import mergeImages from 'merge-images';
 
 @Component({
   selector: 'app-imgs',
@@ -58,10 +57,14 @@ export class ImgsComponent implements OnInit {
       };
       img2.onload = () => {
         context.globalAlpha = 1.0;
-        context.drawImage(img1, 0, 0);
+        context.drawImage(img1, 0, 0, 600, 600);
         context.globalAlpha = 1.0;
-        context.drawImage(img2, 0, 0);
+        context.drawImage(img2, 0, 0, 600, 600);
+
       };
+        img1.width = 600;
+        img1.height = 600;
         img1.src = this.selectedImg;
+        
   }
 }
