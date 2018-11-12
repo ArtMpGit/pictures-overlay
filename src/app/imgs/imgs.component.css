@@ -32,3 +32,14 @@
   text-align: center;
   justify-content: center
 }
+
+a{
+  margin-top: 10%;
+  text-align: center
+}
+.erro{
+  border-color: red;
+}
+.download-link {
+  text-align: center;
+}

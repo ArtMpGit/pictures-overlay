@@ -8,32 +8,31 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 export class ImgsComponent implements OnInit {
 
-  @ViewChild('canvas')
-  canvas: ElementRef;
+  @ViewChild('canvas') canvas: ElementRef;
 
-  selectedImg: string = "http://www.ferramentaslp.com.br/wp-content/uploads/2014/12/MACHADO-COM-CABO-4-600x600.jpg";
-
-  selectedMask: string = "../../assets/mascara.png";
+  defaultLink: string = "https://www.arab-security.com/wp-content/uploads/2015/09/default-placeholder-600x600.png";
+  
+  selectedImg = new Image();
+  selectedMask = new Image();
   
   background: boolean = false;
 
-  images: Array<any> = new Array<any>();
   downloadUrl: string;
   reader = new FileReader();
 
   constructor() { }
 
   ngOnInit() {
+    this.selectedImg.src = this.defaultLink;
+    this.selectedMask.src = this.defaultLink;
+
     this.reader.onload = (event: any) => {
-      let image = new Image();
-      image.src = event.target.result;
-      this.images.push(image);
 
       if(this.background) {
-        this.selectedImg = event.target.result;
+        this.selectedImg.src = event.target.result;
         this.background = false;
       }
-      else this.selectedMask = event.target.result;
+      else this.selectedMask.src = event.target.result;
     }
   }
 
@@ -42,23 +41,42 @@ export class ImgsComponent implements OnInit {
   uploadImg(file: FileList) {
   
     this.reader.readAsDataURL(file.item(0));
-
   }
 
   mergeImgs() {
+    if(!this.validateSelection()){
+      alert("Both background and mask must be selected");
+    }
 
-    let canvas: HTMLCanvasElement = this.canvas.nativeElement;
-    let context = canvas.getContext('2d');
+    else {
+
+      let canvas: HTMLCanvasElement = this.canvas.nativeElement;
+      let context = canvas.getContext('2d');
+      
+      canvas.width = 600;
+      canvas.height = 600;
+      context.globalAlpha = 1.0;
+      
+      context.drawImage(this.selectedImg, 0, 0, 600, 600);
+      context.drawImage(this.selectedMask, 0, 0);
+      this.downloadUrl = canvas.toDataURL(); 
+
+    }
     
-    canvas.width = 600;
-    canvas.height = 600;
-    context.globalAlpha = 1.0;
+  }
+
+  validateSelection(): boolean {
     
-    context.drawImage(this.images[0], 0, 0, 600, 600);
-    context.drawImage(this.images[1], 0, 0);
-    context.save();
-    this.downloadUrl = canvas.toDataURL();    // img1.src = this.selectedImg;
-    
+    if
+    (this.selectedImg.src === this.defaultLink || this.selectedMask.src === this.defaultLink)
+    return false;
+
+    else return true;
+  }
+
+  resetImages() {
+    this.selectedImg.src = this.defaultLink;
+    this.selectedMask.src = this.defaultLink;
   }
 
 }
