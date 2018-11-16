@@ -7,17 +7,16 @@
     </div>
   </div>
 
-  <div class="buttons-flex">
-    
-    <button class="btn btn-default" (click)="background = true; fileInput.click()">Select background</button>
-    <input #fileInput (change)="uploadImg($event.target.files)" type="file" style="display: none" required>
-    
-    <button class="btn btn-default" (click)="fileMaskInput.click()">Select mask</button>
-    <input #fileMaskInput (change)="uploadImg($event.target.files)" type="file" style="display: none" required>
-    
-    <button class="btn btn-default" (click)="mergeImgs()" >Merge</button>
-  
-  </div>
+  <p for="background">Background</p>
+  <input id="background" placeholder="Select background" (change)="uploadImg($event.target.files)" type="file" required>
+
+
+  <p for="background">Background</p>
+  <input id="background" placeholder="Select mask" (change)="uploadMask($event.target.files)" type="file" required>
+
+  <button class="btn btn-default" (click)="mergeImgs()">Merge</button>
+
+
   <div class="canvas-flex">
     <canvas #canvas></canvas>
   </div>
@@ -31,8 +30,3 @@
   </div>
 
 </div>
-
-
-
-
-
